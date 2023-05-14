@@ -1,0 +1,85 @@
+# Doc Version: v1.0
+coffee_docs: {
+  coffee_experience: {
+    shape: sql_table
+    id: Key {constraint: primary_key}
+    drunk_time: timestamp
+
+    # Bean
+    roasted_bean: roasted_bean {constraint: foreign_key}
+
+    # Dripping
+    dripper: Hario V60 | Kalita Wave | ...
+    grind_size: M47 20.1 | JxPro 30 | ...
+    water: purified | ...
+    tempature: int
+    bean_water_ratio: 1:16 | 1:15 | ...
+    recipe: string
+
+    # Grade & Expression
+    experession: string
+    grade: 1~5
+    notes: note {constraint: foreign_key}
+  }
+
+  note: {
+    shape: sql_table
+    id: Key {constraint: primary_key}
+    name: string
+  }
+
+  roasted_bean: {
+    shape: sql_table
+    id: key {constraint: primary_key}
+
+    # Basic Info
+    name: string
+    type: single | blends
+    roastery: roastery {constraint: foreign_key}
+    green_beans: green_bean {constraint: foreign_key}
+
+    roasting_point: light | medium_light | medium | medium_dark | dark
+
+    # Detailed Info
+    product_url: url
+    description: string
+    roasted_time: Date
+    notes: note {constraint: foreign_key}
+  }
+
+  roastery: {
+    shape: sql_table
+    id: key {constraint: primary_key}
+    name: string
+    homepage: url
+    location: 서울 강남구 | 경기 안양시 | ...
+  }
+
+  green_bean: {
+    shape: sql_table
+    id: key {constraint: primary_key}
+    name: string
+    variety: Typica | Heirloom | ...
+    processing: natural | washed | honey | ...
+    farm: farm {constraint: foreign_key}
+  }
+
+  farm: {
+    shape: sql_table
+    id: key {constraint: primary_key}
+    name: string
+    owner: string
+    country: Ethiopia | Colombia | ...
+    location: string
+    altitude: int
+  }
+
+  coffee_experience.roasted_bean -> roasted_bean.id
+  coffee_experience.notes -> note.id
+
+  roasted_bean.roastery -> roastery.id
+  roasted_bean.green_beans -> green_bean.id
+  roasted_bean.notes -> note.id
+
+  green_bean.farm -> farm.id
+}
