@@ -1,4 +1,4 @@
-# Doc Version: v1.0
+# Doc Version: v1.1
 coffee_docs: {
   coffee_experience: {
     shape: sql_table
@@ -7,6 +7,7 @@ coffee_docs: {
 
     # Bean
     roasted_bean: roasted_bean {constraint: foreign_key}
+    extract_type: hand_hot | hand_ice | cold_brew | ...
 
     # Dripping
     dripper: Hario V60 | Kalita Wave | ...
